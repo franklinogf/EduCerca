@@ -3,15 +3,14 @@
 namespace App\Livewire\Dashboard;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Mary\Traits\Toast;
 
-#[Layout('components.layouts.teacher-dashboard')]
 class ViewPost extends Component
 {
     use Toast, WithPagination;
@@ -66,6 +65,7 @@ class ViewPost extends Component
 
     public function render()
     {
-        return view('livewire.dashboard.post');
+        $signedInAs = Auth::getDefaultDriver();
+        return view('livewire.dashboard.post')->layout("components.layouts.{$signedInAs}-dashboard");
     }
 }
